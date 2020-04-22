@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.liren.dao.ResumeDao">
+    <insert id="addResume" parameterType="cn.liren.domain.Resume" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into resume(sex,birthday,college,s_native,idcard,salary,address,major,sid) VALUES (#{sex},#{birthday},#{college},#{s_native},#{idcard},#{salary},#{address},#{major},#{sid})
+    </insert>
+    <update id="updateInternship" parameterType="cn.liren.domain.Resume">
+        UPDATE resume set internship = #{internship} WHERE id = #{id}
+    </update>
+    <update id="updateEducation" parameterType="cn.liren.domain.Resume">
+        UPDATE resume set education = #{education} WHERE id = #{id}
+    </update>
+    <update id="updateTrain" parameterType="cn.liren.domain.Resume">
+        UPDATE resume set train = #{train} WHERE id = #{id}
+    </update>
+    <update id="updateJob_intention" parameterType="cn.liren.domain.Resume">
+        UPDATE resume set job_intention = #{job_intention} WHERE id = #{id}
+    </update>
+    <update id="updateAdditional" parameterType="cn.liren.domain.Resume">
+        UPDATE resume set additional = #{additional} WHERE id = #{id}
+    </update>
+    <update id="updateIt" parameterType="cn.liren.domain.Resume">
+        UPDATE resume set it = #{it} WHERE id = #{id}
+    </update>
+    <update id="updateExperience" parameterType="cn.liren.domain.Resume">
+        UPDATE resume set experience = #{experience} WHERE id = #{id}
+    </update>
+
+    <select id="selectResume" resultType="cn.liren.domain.Resume">
+        SELECT * FROM resume where sid = #{sid}
+    </select>
+
+</mapper>

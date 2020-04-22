@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/login.css" />
+
+    <title>求职网--登录</title>
+</head>
+<body>
+<div class="wrap">
+    <div class="container">
+        <h1>登录</h1>
+        <form action="${pageContext.request.contextPath}/user/login" method="post">
+            <input type="text" id="username"  name="username" class="username" placeholder="用户名"/>
+            <input type="password" id="password" name="password" class="password" placeholder="密码"/>
+            <div class="groupDiv">
+                <td>
+                    <span class="groupspan">您的身份：</span>
+                </td>
+                <select id="mygroup" class="mygroup" name="gid">
+                    <option value=null selected="selected">----------请选择---------</option>
+                    <option value=1>管理员</option>
+                    <option value=2>求职者</option>
+                    <option value=3>用人单位</option>
+                </select>
+            </div>
+            <input type="submit" value="登录"/>
+        </form>
+    </div>
+    <ul>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+        <li>  </li>
+    </ul>
+</div>
+</body>
+</html>

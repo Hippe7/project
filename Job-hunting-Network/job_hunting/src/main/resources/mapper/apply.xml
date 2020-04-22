@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.liren.dao.ApplyDao">
+    <insert id="addJob" parameterType="cn.liren.domain.Apply">
+        INSERT INTO apply(sid,jid,eid,status,rid) VALUES (#{sid},#{jid},#{eid},#{status},#{rid})
+    </insert>
+
+    <select id="findBySidRid" resultType="cn.liren.domain.Apply">
+        SELECT * FROM apply WHERE sid = #{sid} AND jid = #{jid}
+    </select>
+
+    <select id="findByEid" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT *
+            FROM
+                (SELECT a.id aid,j.job_name jname,s.stu_name sname,a.rid rid,a.date adate,a.status astatus ,a.eid eid,a.sid sid
+                    FROM apply a, job j ,student s
+                WHERE a.jid=j.id AND a.sid=s.id ) a
+        WHERE a.eid = #{eid}
+    </select>
+
+    <update id="updateStatus" >
+        UPDATE apply SET status = #{y} WHERE id = #{aid}
+    </update>
+
+    <select id="findBySid" parameterType="java.lang.Integer" resultType="java.util.Map">
+          SELECT *
+                FROM
+                    (SELECT a.id aid,j.job_name jname,e.ent_name ename,a.jid jid,j.job_address job_address,a.status astatus ,a.eid eid,a.sid sid
+                        FROM apply a, job j ,enterprise e
+                    WHERE a.jid=j.id AND a.eid=e.id ) a
+             WHERE a.sid = #{sid}
+             ORDER BY aid
+    </select>
+</mapper>

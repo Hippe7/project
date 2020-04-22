@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.liren.dao.JobDao">
+    <select id="findjobAll" resultType="cn.liren.domain.Job">
+        SELECT  * FROM job WHERE status = 'Y' ORDER BY RAND() limit 6
+    </select>
+
+    <select id="findEnameByEid" resultType="cn.liren.domain.Enterprise">
+        SELECT  * FROM enterprise WHERE id =  #{e_id}
+    </select>
+
+    <select id="findKey" resultType="cn.liren.domain.Job">
+        SELECT * FROM job WHERE job_name like  '%${key}%' and status = 'Y'
+    </select>
+
+    <update id="updateDate"  >
+        UPDATE job SET DATE = #{date} WHERE id = #{id}
+    </update>
+    
+    <insert id="addJob" parameterType="cn.liren.domain.Job" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT into job(job_name,salary,major,education,job_address,date,eid,college,iid,status) VALUES (#{job_name},#{salary},#{major},#{education},#{job_address},#{date},#{eid},#{college},#{iid},#{status})
+    </insert>
+
+    <update id="updateRequirement" parameterType="cn.liren.domain.Job">
+        UPDATE job set requirement = #{requirement} WHERE id = #{id}
+    </update>
+
+    <select id="findByEid" resultType="cn.liren.domain.Job">
+        SELECT * from job WHERE eid = #{eid}
+    </select>
+
+    <select id="findById" resultType="cn.liren.domain.Job">
+        SELECT * from job WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultType="java.util.Map">
+        SELECT job.id jid,job.job_name jname,job.salary salary,job.job_address job_address,job.status jstatus,enterprise.ent_name ename,job.date jdate
+        FROM job ,enterprise
+        WHERE job.eid=enterprise.id
+        ORDER BY jid
+    </select>
+
+    <update id="updateStatus">
+        UPDATE job SET status = #{status} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteJob">
+        DELETE from job where id = #{id}
+    </delete>
+</mapper>

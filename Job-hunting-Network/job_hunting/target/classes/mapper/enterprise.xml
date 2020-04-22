@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.liren.dao.EnterpriseDao">
+    <!-- 注册方法，添加一个新用户，返回值boolean -->
+    <insert id="addEnterprise" parameterType="cn.liren.domain.Enterprise">
+        insert into enterprise(loginName,password,ent_name,phone,manager,email,address) VALUES (#{loginName},#{password},#{ent_name},#{phone},#{manager},#{email},#{address})
+    </insert>
+    <!-- 登录方法-->
+    <select id="findByLoginNameAndPassword" resultType="cn.liren.domain.Enterprise">
+        SELECT id,loginName,password,ent_name,phone,manager,email,address FROM enterprise WHERE loginName = #{loginName} and password = #{password}
+    </select>
+    <!--邮件提醒，通过账号查询对象findByLoginName-->
+    <select id="findByLoginName" resultType="cn.liren.domain.Enterprise">
+        SELECT  id,loginName,password,ent_name,phone,manager,email,address FROM enterprise WHERE loginName = #{loginName}
+    </select>
+
+    <select id="findById" resultType="cn.liren.domain.Enterprise">
+        SELECT * from enterprise WHERE id = #{eid}
+    </select>
+
+    <select id="findAll" resultType="cn.liren.domain.Enterprise">
+        SELECT * FROM enterprise
+    </select>
+
+    <delete id="deleEnt">
+        DELETE FROM enterprise WHERE id=#{id}
+    </delete>
+</mapper>

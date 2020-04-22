@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.liren.dao.StudentDao">
+    <!-- 注册方法，添加一个新用户，返回值boolean -->
+    <insert id="addStudent" parameterType="cn.liren.domain.Student">
+        insert into student(loginName,password,stu_name,phone,email) VALUES (#{loginName},#{password},#{stu_name},#{phone},#{email})
+    </insert>
+    <!-- 登录方法-->
+    <select id="findByLoginNameAndPassword" resultType="cn.liren.domain.Student">
+        SELECT id,loginName,password,stu_name,phone,email FROM student WHERE loginName = #{loginName} and password = #{password}
+    </select>
+    <!--邮件提醒，通过账号查询对象findByLoginName-->
+    <select id="findByLoginName" resultType="cn.liren.domain.Student">
+        SELECT id,loginName,password,stu_name,phone,email FROM student WHERE loginName = #{loginName}
+    </select>
+
+    <select id="findById" resultType="cn.liren.domain.Student">
+        SELECT * from student WHERE id = #{sid}
+    </select>
+
+    <select id="findAdmin" resultType="cn.liren.domain.Admin">
+        SELECT * from admin WHERE loginName=#{loginName} AND password=#{password}
+    </select>
+
+    <select id="findAll" resultType="cn.liren.domain.Student">
+        select * from student
+    </select>
+
+    <update id="updateStu" parameterType="cn.liren.domain.Student">
+        UPDATE student SET loginName=#{loginName},password=#{password},stu_name=#{stu_name},phone=#{phone},email=#{email}
+          WHERE id=#{id}
+    </update>
+
+    <delete id="deleStu">
+        DELETE from student WHERE id = #{id}
+    </delete>
+
+    <select id="findByName" resultType="cn.liren.domain.Student">
+        SELECT * from student WHERE stu_name LIKE '%${key}%'
+    </select>
+</mapper>
